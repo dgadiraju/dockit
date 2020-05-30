@@ -27,9 +27,9 @@ flask run
 * Create Dockerfile using Dockerfile of this repository
 * Build the image
 ```
-docker build -t dockit .
+docker build -t 02_dockerize_web .
 ```
 * Start the Container
 ```
-docker run --name 02_dockerize_1 -p 5000:5000 dockit
+docker run --name 02_dockerize_web_1 -p 5000:5000 -v `pwd`:/app 02_dockerize_web
 ```

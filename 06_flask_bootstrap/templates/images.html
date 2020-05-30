@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Images{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            {% for column in columns %}
+            <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for image in data %}
+        <tr>
+            {% for column in columns %}
+            <td>{{ image[column] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

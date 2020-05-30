@@ -1,14 +1,8 @@
-## Getting Started
+## Dockerize Flask Application
 
-Here are the instructions to setup environment for flask project.
-* Create Project using pycharm or any other IDE
-* Create **requirements.txt** and add the dependencies.
-```
-flask==1.1.2
-```
-* Create a file in the project with name of your choice **app.py**
-  * Import Flask
-  * Define function for base endpoint
+Here are the instructions to dockerize Flask Application.
+* Make sure Hello World Docker application is running.
+* Update return statement in index function to `return 'Hello World, from docker'`
 ```python
 from flask import Flask
 
@@ -19,17 +13,26 @@ app = Flask(__name__)
 def index():
     return 'Hello World, from docker'
 ```
-* Run the application from terminal
-```
-export FLASK_APP=app.py
-flask run
-```
 * Create Dockerfile using Dockerfile of this repository
+```dockerfile
+FROM python:3.7
+
+WORKDIR /app
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+ENV FLASK_APP app.py
+ENV FLASK_ENV development
+
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
+```
 * Build the image
 ```
 docker build -t 02_dockerize_web .
 ```
-* Start the Container
+* Start the Container by mounting our project directory
 ```
 docker run --name 02_dockerize_web_1 -p 5000:5000 -v `pwd`:/app 02_dockerize_web
 ```

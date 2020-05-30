@@ -22,13 +22,14 @@ docker==4.2.0
   * Create client object using `docker.from_env`.
   * We can pass `DOCKER_HOST` to `docker.from_env` to connect to docker server running remotely.
 * We will continue using Docker based approach to build run time environment to run the APIs.
-* Build the image.
+* Create Dockerfile using Dockerfile of this repository
+* Build the image
 ```
 docker build -t dockit .
 ```
-* Start the Container.
+* Start the Container
 ```
-docker run --name 03_dockerize_1 -it dockit bash
+docker run --name 03_manage_docker_1 -it dockit bash
 ```
 * Here are some of the commands which can be used to validate.
 ```

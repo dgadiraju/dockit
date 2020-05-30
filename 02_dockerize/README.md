@@ -24,12 +24,12 @@ def index():
 export FLASK_APP=app.py
 flask run
 ```
-* Create Dockerfile using Dockerfile of this repository.
-* Build the image.
+* Create Dockerfile using Dockerfile of this repository
+* Build the image
 ```
 docker build -t dockit .
 ```
-* Start the Container.
+* Start the Container
 ```
 docker run --name 02_dockerize_1 -p 5000:5000 dockit
 ```

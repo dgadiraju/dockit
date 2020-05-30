@@ -24,23 +24,12 @@ def index():
 export FLASK_APP=app.py
 flask run
 ```
-* Create Dockerfile
+* Create Dockerfile using Dockerfile of this repository
+* Build the image
 ```
-FROM python:3.7
-
-RUN useradd -m itversity
-RUN mkdir /app
-RUN chown itversity:itversity /app
-USER itversity
-
-WORKDIR /app
-COPY . /app
-RUN python -m venv env
-ENV PATH=/app/env/bin:$PATH
-RUN pip install -r requirements.txt
-
-EXPOSE 5000
-ENV FLASK_APP app.py
-CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
-
+docker build -t dockit .
+```
+* Start the Container
+```
+docker run --name 04_flask_docker_rest_1 -p 5000:5000 dockit
 ```

@@ -5,6 +5,7 @@ Here are the instructions to setup environment for flask project.
 * Create **requirements.txt** and add the dependencies.
 ```
 flask==1.1.2
+
 ```
 * Create a file in the project with name of your choice **app.py**
   * Import Flask
@@ -25,11 +26,8 @@ export FLASK_APP=app.py
 flask run
 ```
 * Create Dockerfile using Dockerfile of this repository
-* Build the image
-```
-docker build -t dockit .
-```
-* Start the Container
-```
-docker run --name 04_flask_docker_rest_1 -p 5000:5000 dockit
-```
+* Create **docker-compose.yml** file for the following
+  * Build the image
+  * Create the container
+  * Start the container by mounting the source code
+* Run `docker-compose up` command to launch the Flask Web Application

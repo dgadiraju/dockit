@@ -25,11 +25,8 @@ export FLASK_APP=app.py
 flask run
 ```
 * Create Dockerfile using Dockerfile of this repository
-* Build the image
-```
-docker build -t dockit .
-```
-* Start the Container
-```
-docker run --name 05_flask_html_1 -p 5000:5000 dockit
-```
+* Create **docker-compose.yml** file for the following
+  * Build the image
+  * Create the container
+  * Start the container by mounting the source code
+* Run `docker-compose up` command to launch the Flask Web Application

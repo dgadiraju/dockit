@@ -24,3 +24,9 @@ def index():
 export FLASK_APP=app.py
 flask run
 ```
+* We can also export **FLASK_ENV** to **development** so that the application is restarted automatically in case of changes.
+```
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask run
+```

@@ -1,12 +1,10 @@
 import docker
 
 
-def get_client():
-    return docker.from_env(environment={'DOCKER_HOST': 'tcp://35.193.6.228:2375'})
+client = docker.from_env(environment={'DOCKER_HOST': 'tcp://35.193.6.228:2375'})
 
 
 def list_containers():
-    client = get_client()
     containers_list = client.containers.list(all=True)
     containers = map(lambda container:
                      {
@@ -19,7 +17,6 @@ def list_containers():
 
 
 def list_images():
-    client = get_client()
     images_list = client.images.list(all=True)
     images = map(lambda image:
                  {
@@ -30,19 +27,11 @@ def list_images():
     return list(images)
 
 
-def stop_container(container_id):
-    client = get_client()
+def manage_container(container_id, action):
     container = client.containers.get(container_id)
-    container.stop()
-
-
-def start_container(container_id):
-    client = get_client()
-    container = client.containers.get(container_id)
-    container.start()
-
-
-def delete_container(container_id):
-    client = get_client()
-    container = client.containers.get(container_id)
-    container.remove()
+    if action == 'stop':
+        container.stop()
+    elif action == 'start':
+        container.start()
+    else:
+        container.remove()

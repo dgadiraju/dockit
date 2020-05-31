@@ -15,12 +15,12 @@ elif command == 'list_images':
         print(image)
 elif command == 'stop_container':
     container_id = sys.argv[2]
-    manage.stop_container(container_id)
+    manage.manage_container(container_id, 'stop')
 elif command == 'start_container':
     container_id = sys.argv[2]
-    manage.start_container(container_id)
+    manage.manage_container(container_id, 'start')
 elif command == 'delete_container':
     container_id = sys.argv[2]
-    manage.delete_container(container_id)
+    manage.manage_container(container_id, 'delete')
 else:
     print('{} not valid is a not valid command'.format(command))

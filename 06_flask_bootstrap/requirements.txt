@@ -1,4 +1,3 @@
 Flask==1.1.2
 Flask-Bootstrap==3.3.7.1
-flask-nav==0.6
 docker==4.2.0

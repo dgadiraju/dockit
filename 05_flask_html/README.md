@@ -13,7 +13,7 @@ We can use Flask Templating for the UI of web application based up on Flask Fram
     {% endblock %}
 </section>
 ```
-  * To display containers in tabular format for containers end point `containers.html`
+  * To display containers in tabular format for containers end point `containers.html`. In this case the table will be rendered dynamically using column names and data returned by `list_containers` function.
 ```html
 {% extends 'base.html' %}
 

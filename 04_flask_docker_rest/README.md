@@ -35,4 +35,16 @@ def index():
     * Build the image
     * Create the container
     * Start the container by mounting the source code
+```dockerfile
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: development  
+```
   * Run `docker-compose up` command to launch the Flask Web Application

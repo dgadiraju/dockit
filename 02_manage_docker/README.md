@@ -112,6 +112,14 @@ def manage_container(container_id, action):
 Let us also dockerize our application so that we can streamline our development process.
 * We will continue using Docker based approach to build run time environment to run the APIs.
 * Create Dockerfile using Dockerfile of this repository
+```dockerfile
+FROM python:3.7
+
+WORKDIR /app
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+```
 * Build the image
 ```
 docker build -t 02_manage_docker .

@@ -1,32 +1,97 @@
-## Getting Started
+## Flask HTML (Templating) 
 
-Here are the instructions to setup environment for flask project.
-* Create Project using pycharm or any other IDE
-* Create **requirements.txt** and add the dependencies.
+We can use Flask Templating for the UI of web application based up on Flask Framework.
+* Create folder for html pages by name **templates**
+* Create HTML Pages for the following:
+  * Base template for the website `base.html`
+```html
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - Flask HTML</title>
+
+<section class="content">
+    {% block content %}
+    {% endblock %}
+</section>
 ```
-flask==1.1.2
+  * To display containers in tabular format for containers end point `containers.html`
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Containers{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for container in data %}
+                <tr>
+                    {% for column in columns %}
+                        <td>{{ container[column] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
 ```
-* Create a file in the project with name of your choice **app.py**
-  * Import Flask
-  * Define function for base endpoint
+  * To display images in tabular format for images end point `images.html`
+```html
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Images{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for image in data %}
+                <tr>
+                    {% for column in columns %}
+                        <td>{{ image[column] }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+```
+* We need to refactor the return statement for our functions (**list_containers** and **list_images**) 
+  * Add `render_template` to the import statement - `from flask import Flask, render_template`
+  * Refactor `list_containers`
 ```python
-from flask import Flask
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return 'Hello World, from docker'
+@app.route('/containers')
+def list_containers():
+    containers = manage.list_containers()
+    columns = containers[0].keys()
+    return render_template('containers.html', data=containers, columns=columns)
 ```
-* Run the application from terminal
+  * Refactor `list_images`
+```python
+@app.route('/images')
+def list_images():
+    images = manage.list_images()
+    columns = images[0].keys()
+    return render_template('images.html', data=images, columns=columns)
 ```
-export FLASK_APP=app.py
-flask run
-```
-* Create Dockerfile using Dockerfile of this repository
-* Create **docker-compose.yml** file for the following
-  * Build the image
-  * Create the container
-  * Start the container by mounting the source code
-* Run `docker-compose up` command to launch the Flask Web Application
+* Make sure both **Dockerfile** and **docker-compose.yml** are in Project Base Directory.
+* Run `docker-compose up` to start the application.
+* Go to following pages and see if the output is rendered in HTML or not.
+  * For list of containers - [http://localhost:5000](http://localhost:5000)
+  * For list of containers - [http://localhost:5000/containers](http://localhost:5000/containers)
+  * For list of images - [http://localhost:5000/images](http://localhost:5000/image)

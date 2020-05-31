@@ -30,9 +30,9 @@ CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
 ```
 * Build the image
 ```
-docker build -t 02_dockerize_web .
+docker build -t 03_dockerize_flask .
 ```
 * Start the Container by mounting our project directory
 ```
-docker run --name 02_dockerize_web_1 -p 5000:5000 -v `pwd`:/app 02_dockerize_web
+docker run --name 03_dockerize_flask_1 -p 5000:5000 -v `pwd`:/app 03_dockerize_flask
 ```

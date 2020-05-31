@@ -5,4 +5,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Another Hello World, from docker'
+    return 'Hello World, from docker'

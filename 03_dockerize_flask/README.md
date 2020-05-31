@@ -1,7 +1,7 @@
 ## Dockerize Flask Application
 
 Here are the instructions to dockerize Flask Application.
-* Make sure Hello World Docker application is running.
+* Make sure Hello World Flask application is validated.
 * Update return statement in index function to `return 'Hello World, from docker'`
 ```python
 from flask import Flask

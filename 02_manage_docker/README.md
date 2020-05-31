@@ -54,11 +54,11 @@ docker==4.2.0
 * Create Dockerfile using Dockerfile of this repository
 * Build the image
 ```
-docker build -t 03_manage_docker .
+docker build -t 02_manage_docker .
 ```
 * Start the Container
 ```
-docker run --name 03_manage_docker_1 -v `pwd`:/app -it 03_manage_docker bash
+docker run --name 02_manage_docker_1 -v `pwd`:/app -it 02_manage_docker bash
 ```
 * Here are some of the commands which can be used to validate.
 ```

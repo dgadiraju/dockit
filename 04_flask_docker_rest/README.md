@@ -31,6 +31,19 @@ def index():
 ```
 * Let us also start exploring docker compose which can streamline the process of integrating and managing multiple containers.
   * Create Dockerfile using Dockerfile of this repository
+```dockerfile
+FROM python:3.7
+
+WORKDIR /app
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+ENV FLASK_APP app.py
+
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
+```
   * Create **docker-compose.yml** file for the following
     * Build the image
     * Create the container

@@ -8,6 +8,11 @@ We can use Flask Templating for the UI of web application based up on Flask Fram
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} - Flask HTML</title>
 
+<section class="header">
+    {% block header %}
+    {% endblock %}
+</section>
+
 <section class="content">
     {% block content %}
     {% endblock %}

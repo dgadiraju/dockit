@@ -43,15 +43,83 @@ Here are the instructions to explore APIs or functions to manage docker containe
 ```
 docker==4.2.0
 ```
+* We can open terminal and run `pip install -r requirements.txt`.
+* Docker library can be imported using `import docker`
+* We can configure client to connect to remote Docker Server.
+```
+client = docker.from_env(environment={'DOCKER_HOST': 'tcp://35.193.6.228:2375'})
+```
+* Listing Containers - `containers_list = client.containers.list(all=True)`
+* `containers_list` contains list of container objects with ids.
+* We can create a container object by saying `container = containers_list[0]`
+* Here are some of the functions or attributes available for container object that can be leveraged to get information or to manage containers.
+  * `container.short_id` gives us id of the container.
+  * `container.name` gives us name of the container.
+  * `container.status` gives us the status of the container.
+  * We can use `container.stop()` to stop the container.
+  * `container.start()` to start the container and `container.remove()` to remove the container.
+  * For almost all the commands we have seen using `docker container ps`, we have corresponding APIs.
+* Listing Images - `images_list = client.images.list(all=True)`
+* APIs related to images are also similar to containers.
+
+### Develop Python Programs
+Let us develop Python Program to integrate with Flask REST APIs later.
 * We will have 2 files **dock.py** and **manage.py**
 * **manage.py** will have some functions to manage docker containers.
+  * Listing Containers
+```python
+def list_containers():
+    containers_list = client.containers.list(all=True)
+    containers = map(lambda container:
+                     {
+                         'container_id': container.short_id,
+                         'container_name': container.name,
+                         'container_status': container.status
+                     }, containers_list
+                    )
+    return list(containers)
+```
+  * Listing Images
+```python
+def list_images():
+    images_list = client.images.list(all=True)
+    images = map(lambda image:
+                 {
+                     'image_id': image.short_id,
+                     'image_tag': 'No Tag' if len(image.tags) == 0 else image.tags[0]
+                 }, images_list
+                 )
+    return list(images)
+```
+  * Managing Containers
+```python
+def manage_container(container_id, action):
+    container = client.containers.get(container_id)
+    if action == 'stop':
+        container.stop()
+    elif action == 'start':
+        container.start()
+    else:
+        container.remove()
+```
 * We will use the same program as part of Flask based web application to manage Docker containers later.
 * Here are the steps to use functions from library  `docker` to manage containers.
   * Once docker library is installed we need to `import docker`.
   * Create client object using `docker.from_env`.
   * We can pass `DOCKER_HOST` to `docker.from_env` to connect to docker server running remotely.
+  
+### Dockerize Application
+Let us also dockerize our application so that we can streamline our development process.
 * We will continue using Docker based approach to build run time environment to run the APIs.
 * Create Dockerfile using Dockerfile of this repository
+```dockerfile
+FROM python:3.7
+
+WORKDIR /app
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+```
 * Build the image
 ```
 docker build -t 02_manage_docker .

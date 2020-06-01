@@ -24,3 +24,20 @@ def index():
 export FLASK_APP=app.py
 flask run
 ```
+* We can also export **FLASK_ENV** to **development** so that the application is restarted automatically in case of changes.
+```
+export FLASK_APP=app.py
+export FLASK_ENV=development
+flask run
+```
+* Change return statement in the **index** function to validate and refresh the page.
+```python
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+   return 'Another Hello World, Getting Started'
+```

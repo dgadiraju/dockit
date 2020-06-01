@@ -30,9 +30,35 @@ def index():
     return list_containers()
 ```
 * Let us also start exploring docker compose which can streamline the process of integrating and managing multiple containers.
-  * Create Dockerfile using Dockerfile of this repository
+  * Create Dockerfile using Dockerfile of this repository (removed `ENV FLASK_ENV development`).
+```dockerfile
+FROM python:3.7
+
+WORKDIR /app
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+ENV FLASK_APP app.py
+
+CMD ["flask", "run", "--host", "0.0.0.0", "--port", "5000"]
+```
+  * Make sure to clean up images and containers before using **docker-compose** as it generates the names for images as well as containers.
   * Create **docker-compose.yml** file for the following
     * Build the image
     * Create the container
     * Start the container by mounting the source code
+```dockerfile
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: development  
+```
   * Run `docker-compose up` command to launch the Flask Web Application

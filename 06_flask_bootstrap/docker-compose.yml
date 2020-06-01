@@ -1,4 +1,5 @@
-version: '3'
+version: "3"
+
 services:
   web:
     build: .
@@ -7,4 +8,5 @@ services:
     volumes:
       - .:/app
     environment:
-      FLASK_ENV: development    
+      FLASK_ENV: development
+      DOCKER_HOST: $REMOTE_DOCKER_HOST

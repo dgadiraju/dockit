@@ -1,7 +1,9 @@
 import docker
+import os
 
 
-client = docker.from_env(environment={'DOCKER_HOST': 'tcp://35.193.6.228:2375'})
+docker_host = os.environ.get('DOCKER_HOST')
+client = docker.from_env(environment={'DOCKER_HOST': docker_host})
 
 
 def list_containers():
@@ -19,11 +21,11 @@ def list_containers():
 def list_images():
     images_list = client.images.list(all=True)
     images = map(lambda image:
-                 {
-                     'image_id': image.short_id,
-                     'image_tag': 'No Tag' if len(image.tags) == 0 else image.tags[0]
-                 }, images_list
-                 )
+                     {
+                         'image_id': image.short_id,
+                         'image_tag': 'No Tag' if len(image.tags) == 0 else image.tags[0]
+                     }, images_list
+                    )
     return list(images)
 
 
@@ -35,4 +37,3 @@ def manage_container(container_id, action):
         container.start()
     else:
         container.remove()
-
